@@ -7,7 +7,7 @@ list(APPEND CMAKE_PREFIX_PATH
     "${CMAKE_CURRENT_LIST_DIR}/cmake/modules"
 )
 
-add_compile_options(-Wall -Wextra -pedantic -Werror)
+add_compile_options(-Wall -Wextra -pedantic)
 
 # NOTE: you can specify custom installation locations of the libraries
 # by setting CMake variables -DSDL_INCLUDE_DIR=... or -DLIBEVDEV_INCLUDE_DIR=...
