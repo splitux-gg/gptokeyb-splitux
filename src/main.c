@@ -62,6 +62,12 @@ char user_config_file[MAX_PATH];
 char game_prefix[MAX_PROCESS_NAME] = "";
 char kill_process_name[MAX_PROCESS_NAME] = "";
 
+// Splitux: target controller index (-1 = all controllers, 0+ = specific controller)
+int target_controller_index = -1;
+
+// Splitux: device instance ID for unique virtual device naming (-1 = no suffix)
+int device_instance_id = -1;
+
 
 gptokeyb_config *default_config=NULL;
 
@@ -132,7 +138,7 @@ int main(int argc, char* argv[])
         }
     }
 
-    while ((opt = getopt(argc, argv, "vk1g:hdxp:c:ZXPH:s:")) != -1)
+    while ((opt = getopt(argc, argv, "vk1g:hdxp:c:ZXPH:s:D:n:")) != -1)
     {
         switch (opt)
         {
@@ -218,6 +224,16 @@ int main(int argc, char* argv[])
             printf("using control %s\n", default_control);
             break;
 
+        case 'D':
+            target_controller_index = atoi(optarg);
+            printf("Targeting controller index %d only (splitux isolation mode)\n", target_controller_index);
+            break;
+
+        case 'n':
+            device_instance_id = atoi(optarg);
+            printf("Device instance ID: %d (virtual device will be named 'Fake Keyboard Mouse %d')\n", device_instance_id, device_instance_id);
+            break;
+
         case '?':
         case 'h':
             if (opt == '?')
@@ -246,7 +262,11 @@ int main(int argc, char* argv[])
             fprintf(stderr, "  -p  \"control\"       - what control mode to start in.\n");
             fprintf(stderr, "\n");
             fprintf(stderr, "  -d                  - dump config parsed.\n");
-            fprintf(stderr, "  -v                  - print version and quit.");
+            fprintf(stderr, "  -v                  - print version and quit.\n");
+            fprintf(stderr, "\n");
+            fprintf(stderr, "Splitux options:\n");
+            fprintf(stderr, "  -D  <index>         - only use controller at index (0, 1, 2, etc.)\n");
+            fprintf(stderr, "                        for input isolation in multi-instance setups.\n");
             fprintf(stderr, "\n");
             return 1;
             break;

@@ -37,6 +37,8 @@
 
 #include "gptokeyb2.h"
 
+// Track controller add order for -D option
+static int controller_add_count = 0;
 
 void handleInputEvent(const SDL_Event *event)
 {
@@ -70,13 +72,23 @@ void handleInputEvent(const SDL_Event *event)
 
     case SDL_CONTROLLERDEVICEADDED:
         {
+            int current_index = controller_add_count++;
+
+            // Splitux: filter by target controller index if set
+            if (target_controller_index >= 0 && current_index != target_controller_index)
+            {
+                printf("Ignoring controller %d (targeting index %d)\n", current_index, target_controller_index);
+                break;
+            }
+
             SDL_GameController* controller = SDL_GameControllerOpen(event->cdevice.which);
             if (controller)
             {
                 int controller_fd = interpose_get_fd();
                 SDL_Joystick *joystick = SDL_GameControllerGetJoystick(controller);
                 const char *name = SDL_JoystickName(joystick);
-                printf("Joystick %i has game controller name '%s': %d\n", 0, name, controller_fd);
+                printf("Joystick %i (index %d) has game controller name '%s': fd=%d\n",
+                       event->cdevice.which, current_index, name, controller_fd);
                 if (strcmp(name, XBOX_CONTROLLER_NAME) != 0)
                 {
                     SDL_GameControllerOpen(event->cdevice.which);

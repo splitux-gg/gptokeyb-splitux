@@ -1,11 +1,24 @@
-# GamePad TO KeyBoard 2
+# gptokeyb-splitux
 
-Gamepad to Keyboard/mouse/xbox360(gamepad) emulator
+Fork of [gptokeyb2](https://github.com/PortsMaster/gptokeyb2) for splitux local multiplayer.
 
+Controller to keyboard/mouse translation for games without native gamepad support.
+
+## Upstream Attribution
+
+This is a fork of the excellent **gptokeyb2** project:
+
+- **gptokeyb2**: [PortsMaster/gptokeyb2](https://github.com/PortsMaster/gptokeyb2)
 - Based on code by: [Kris Henriksen](https://github.com/krishenriksen/AnberPorts/tree/master/AnberPorts-Joystick) and fake Xbox code from: https://github.com/Emanem/js2xbox
 - Modified to use SDL2 by: [Nikolai Wuttke](https://github.com/lethal-guitar) & [Shanti Gilbert](https://github.com/shantigilbert) for https://github.com/EmuELEC/EmuELEC
 - Interactive text entry added by [Robin Duxfield](https://github.com/romadu)
 - Mostly a complete rewrite by [Jacob Smith](https://github.com/kloptops)
+
+## Splitux Modifications
+
+- Per-instance daemon support (one gptokeyb per game instance)
+- Device path selection via `--device` flag
+- Integration with splitux input isolation
 
 ## About
 

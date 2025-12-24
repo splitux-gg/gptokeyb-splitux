@@ -100,7 +100,11 @@ void setupFakeKeyboardMouseDevice()
     struct uinput_user_dev device;
     
     memset(&device, 0, sizeof(device));
-    strncpy(device.name, "Fake Keyboard Mouse", UINPUT_MAX_NAME_SIZE);
+    if (device_instance_id >= 0) {
+        snprintf(device.name, UINPUT_MAX_NAME_SIZE, "Fake Keyboard Mouse %d", device_instance_id);
+    } else {
+        strncpy(device.name, "Fake Keyboard Mouse", UINPUT_MAX_NAME_SIZE);
+    }
     device.id.vendor = 0x1234;  /* sample vendor */
     device.id.product = 0x5678; /* sample product */
     device.id.version = 1;

@@ -416,6 +416,12 @@ extern bool want_kill;
 extern bool want_sudo;
 extern char kill_process_name[];
 
+// Splitux: target controller index (-1 = all controllers, 0+ = specific controller)
+extern int target_controller_index;
+
+// Splitux: device instance ID for unique virtual device naming (-1 = no suffix)
+extern int device_instance_id;
+
 extern char game_prefix[];
 
 // config.c
