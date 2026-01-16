@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: 
+        arch:
           - name: arm64
             cross: aarch64-linux-gnu
             executable: aarch64
@@ -44,7 +44,7 @@ jobs:
           mkdir build && cd build
           cmake ../ -GNinja -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchains/debian-${{ matrix.arch.name }}-gcc-toolchain.cmake -DCMAKE_BUILD_TYPE=Release
           cmake --build .
-        
+
       - name: Prepare export
         run: |
           cd build
@@ -60,4 +60,4 @@ jobs:
           name: gptokeyb2_${{ matrix.arch.name }}
           path: |
             ${{ github.workspace }}/build/*.${{ matrix.arch.executable }}*
-
+          retention-days: 30
