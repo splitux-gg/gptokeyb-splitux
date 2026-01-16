@@ -42,6 +42,7 @@ jobs:
         with:
           name: gptokeyb-splitux-x86_64
           path: build/gptokeyb-splitux-*.tar.gz
+          retention-days: 30
 
   release:
     needs: build
