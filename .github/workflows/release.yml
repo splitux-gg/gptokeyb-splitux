@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build-and-release:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, default]
     name: Build x86_64
 
     steps:
@@ -34,7 +34,6 @@ jobs:
         run: |
           cd build
           strip gptokeyb2
-          # Package binary and interpose library
           tar -czvf gptokeyb-splitux-${{ github.ref_name }}.tar.gz gptokeyb2 lib/libinterpose.so
 
       - name: Create Release
